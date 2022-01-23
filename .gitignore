@@ -1,0 +1,6 @@
+foo
+.ali/
+.adb/
+.o/
+*.o
+*.exe
