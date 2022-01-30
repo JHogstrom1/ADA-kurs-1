@@ -8,49 +8,40 @@ procedure Moms is
    AntalVarv : Integer;
    
    
-begin
-   
-   Put("Första pris: ");
-   Get(First);
- 
-   while Integer(Float'Floor(First)) < 0 loop
-     Put("Felaktigt värde!");
-     New_Line;
-     Put("Första pris: ");
-     Get(First);
-	
-  end loop;
+begin   
+   loop
+      Put("Första pris: ");
+      Get(First);
+      exit when (First > 0.0);
+      Put_Line("Felaktigt värde!");
+      
+   end loop;
    
    
-   Put("Sista pris: ");
-   Get(Last);
-   
-   while Integer(Float'Floor(Last)) - Integer(Float'Floor(First)) < 0 loop
-      Put("Felaktigt värde!");
-      New_Line;
+   loop
       Put("Sista pris: ");
       Get(Last);
-	 
+      exit when (Last > 0.0 and Last - First >= 0.0);
+      Put_Line("Felaktigt värde!");
+      
    end loop;
    
-   Put("Steg: ");
-   Get(Steps);
    
-   while Integer(Float'Floor(Steps)) < 0 or Steps = 0.0  loop
-      Put("Felaktigt värde!");
-      New_Line;
+   loop
       Put("Steg: ");
       Get(Steps);
+      exit when (Steps > 0.0);
+      Put_Line("Felaktigt värde!");
+      
    end loop;
-     
-   Put("Momsprocent: ");
-   Get(Procent);
    
-   while Integer(Float'Floor(Procent)) < 0 or Procent > 100.0  loop	
-      Put("Felaktigt värde!");
-      New_Line;
+   
+   loop
       Put("Momsprocent: ");
       Get(Procent);
+      exit when (Procent >= 0.0 and Procent <= 100.0);
+      Put_Line("Felaktigt värde!");
+      
    end loop;
    
    
@@ -61,12 +52,11 @@ begin
    Put_Line("============ Momstabell ============");
    Put_Line("Pris utan moms  Moms   Pris med moms");
    
-   while AntalVarv >= 0 loop  
+   for X in 0..AntalVarv loop  
       Put(First, Fore => 6, Aft => 2, Exp => 0);
       Put(First*Procent, Fore => 8, Aft => 2, Exp => 0);
       Put(First+(First*Procent), Fore => 9, Aft => 2, Exp => 0);
       First := First + Steps;
-      AntalVarv := AntalVarv - 1;
       New_Line;
       
    end loop;
